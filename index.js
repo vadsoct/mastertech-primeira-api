@@ -30,7 +30,15 @@ app.get('/alunos', function (req, res) {
 
 app.post('/alunos', function (req, res) {
   console.log(req.body);
-  res.sendStatus(201);
+  res.send(201, req.body);
+});
+
+app.put('/alunos', function (req, res) {
+  console.log(req.body);
+  var a = req.body;
+a.idade = 10;
+
+  res.send(200, a);
 });
 
 
