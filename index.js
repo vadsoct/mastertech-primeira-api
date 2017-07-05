@@ -1,4 +1,4 @@
-var alunos = require("./controllers/alunos.js")
+var alunosController = require("./controllers/alunos.js");
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
   res.status(200).send("Hello Mastertech!");
 });
 
-app.get('/alunos', alunos.list);
+app.get('/alunos', alunosController.list);
 
 app.post('/alunos', function (req, res) {
   console.log(req.body);

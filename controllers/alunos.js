@@ -1,4 +1,4 @@
-var list = function (req, res) {
+exports.list = function (req, res) {
   var body = [
     {
       "id": 1,
@@ -16,4 +16,20 @@ var list = function (req, res) {
   console.log('Get invocado');
   res.send(body);
 };
-exports.list = list;
+
+exports.create = function (req, res) {
+  console.log(req.body);
+  res.send(201, req.body);
+};
+
+exports.atualizar = function (req, res) {
+
+};
+
+exports.apagar = function (req, res) {
+
+};
+
+exports.recuperar = function (req, res) {
+
+};
