@@ -1,4 +1,4 @@
-exports.list = function (req, res) {
+exports.listar = function (req, res) {
   var body = [
     {
       "id": 1,
@@ -17,7 +17,7 @@ exports.list = function (req, res) {
   res.send(body);
 };
 
-exports.create = function (req, res) {
+exports.criar = function (req, res) {
   console.log(req.body);
   res.send(201, req.body);
 };

@@ -23,17 +23,8 @@ app.get('/', function (req, res) {
   res.status(200).send("Hello Mastertech!");
 });
 
-app.get('/alunos', alunosController.list);
-
-app.post('/alunos', function (req, res) {
-  console.log(req.body);
-  res.send(201, req.body);
-});
-
-app.put('/alunos', function (req, res) {
-  console.log(req.body);
-  var a = req.body;
-  a.idade = 10;
-
-  res.send(200, a);
-});
+app.get('/alunos', alunosController.listar);
+app.post('/alunos', alunosController.criar);
+app.put('/alunos', alunosController.atualizar);
+app.get('/alunos/1', alunosController.recuperar);
+app.delete('/alunos/1', alunosController.apagar);
