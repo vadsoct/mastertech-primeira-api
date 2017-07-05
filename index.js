@@ -1,30 +1,23 @@
-var alunosController = require("./controllers/alunos.js");
-
 var express = require('express');
 var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
 
+// inicializa o express
 var app = express();
 
+// inicializa o body parser
 app.use(bodyParser.json());
 
-var db;
-var url = 'mongodb://localhost:27017/primeira-api';
-
-MongoClient.connect(url, function (err, database) {
-  if (err) return console.log(err);
-  db = database;
-  app.listen(3000, function() {
-    console.log('listening on 3000');
-  });
+// inicializa o servidor na porta especificada
+app.listen(3000, function() {
+  console.log('Acesse o servidor http://localhost:3000');
 });
 
-app.get('/', function (req, res) {
-  res.status(200).send("Hello Mastertech!");
-});
+// importa controllers
+var alunosController = require('./controllers/alunos.js');
 
+// cria enpoints para funcoes de controllers
 app.get('/alunos', alunosController.listar);
 app.post('/alunos', alunosController.criar);
-app.put('/alunos', alunosController.atualizar);
-app.get('/alunos/1', alunosController.recuperar);
-app.delete('/alunos/1', alunosController.apagar);
+app.put('/alunos/:id', alunosController.atualizar);
+app.get('/alunos/:id', alunosController.recuperar);
+app.delete('/alunos/:id', alunosController.apagar);
