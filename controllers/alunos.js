@@ -74,6 +74,48 @@ exports.recuperar = function (req, res) {
       return res.send(404);
     }
 
+    result.senha = '<confidencial>';
+
     res.send(result);
   });
 };
+
+exports.matricularAluno = function (req, res) {
+  var id = req.params.id;
+  var t = req.params.turma;
+
+  if (!id || !t) {
+  //if ( !(id && turma) ) {
+    return res.sendStatus(400);
+  }
+
+  // atualizar o aluno com a matricula
+  req.db.collection('alunos').update({_id: ObjectID(id)}, { $set: {turma: t} }, function(err, result) {
+    if (err) {
+      return res.sendStatus(503);
+    }
+
+    // se nao houver o aluno informado
+    if (!result) {
+      return res.sendStatus(400);
+    }
+
+    var matricula = req.body;
+
+    // garantir que existe data e valor
+    if (!matricula.data || !matricula.valor) {
+      return res.sendStatus(415);
+    }
+
+    matricula.aluno = ObjectID(id);
+
+    req.db.collection('matriculas').save(matricula, function(err, result) {
+      if (err) {
+        return res.sendStatus(503);
+      }
+
+      res.sendStatus(201);
+    });
+  });
+
+}

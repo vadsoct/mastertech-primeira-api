@@ -27,6 +27,7 @@ app.put('/alunos/:id', alunosController.atualizar);
 app.get('/alunos/:id', alunosController.recuperar);
 app.delete('/alunos/:id', alunosController.apagar);
 app.get('/alunos/turma/:turma', alunosController.recuperarTurma);
+app.post('/alunos/:id/matricula/:turma', alunosController.matricularAluno);
 
 app.get('/professores', professoresController.listar);
 app.post('/professores', professoresController.criar);
