@@ -52,15 +52,15 @@ exports.apagar = function (req, res) {
 exports.recuperar = function (req, res) {
   var id = req.params.id;
 
-  req.db.collection('alunos').find({_id: ObjectID(id)}).toArray(function(err, result) {
+  req.db.collection('alunos').findOne({_id: ObjectID(id)}, function(err, result) {
     if (err) {
       return res.sendStatus(503);
     }
 
-    if (result.length == 0) {
+    if (!result) {
       return res.send(404);
     }
 
-    res.send(result[0]);
+    res.send(result);
   });
 };
