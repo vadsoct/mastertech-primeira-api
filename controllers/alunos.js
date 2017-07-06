@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 
 var db;
 var url = 'mongodb://localhost:27017/primeira-api';
@@ -22,18 +23,18 @@ exports.criar = function (req, res) {
   db.collection('alunos').save(req.body, function(err, result) {
     if (err) return console.log(err);
 
-    res.sendStatus(200);
+    res.sendStatus(201);
   });
 };
 
 // atualiza um aluno
 exports.atualizar = function (req, res) {
   var id = req.params.id;
+  console.log(id);
+  db.collection('alunos').update({_id: ObjectID(id)}, { $set: req.body }, function(err, result) {
+    if (err) res.sendStatus(401);
 
-  db.collection('alunos').update({_id: id}, {$set: req.body}, function(err, result) {
-    if (err) return console.log(err);
-
-    res.sendStatus(200);
+    res.send(200, result);
   });
 };
 
@@ -41,7 +42,7 @@ exports.atualizar = function (req, res) {
 exports.apagar = function (req, res) {
   var id = req.params.id;
 
-  db.collection('alunos').remove({_id: id}, {safe: true}, function(err, result) {
+  db.collection('alunos').remove({_id: ObjectID(id)}, {justOne: true}, function(err, result) {
     if (err) return console.log(err);
 
     res.sendStatus(200);
@@ -52,5 +53,13 @@ exports.apagar = function (req, res) {
 exports.recuperar = function (req, res) {
   var id = req.params.id;
 
-  res.sendStatus(200);
+  db.collection('alunos').find({_id: ObjectID(id)}).toArray(function(err, result) {
+    if (err) return console.log(err);
+
+    if (result.length == 0) {
+      return res.send(404);
+    }
+
+    res.send(result[0]);
+  });
 };
