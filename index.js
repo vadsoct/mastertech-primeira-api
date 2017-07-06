@@ -1,11 +1,15 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var expressMongoDb = require('express-mongo-db');
 
 // inicializa o express
 var app = express();
 
 // inicializa o body parser
 app.use(bodyParser.json());
+
+// inicializa mongo e expoe para o express
+app.use(expressMongoDb('mongodb://localhost:27017/primeira-api'));
 
 // inicializa o servidor na porta especificada
 app.listen(3000, function() {
