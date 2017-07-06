@@ -11,6 +11,19 @@ exports.listar = function (req, res) {
   });
 };
 
+// recupera alunos de uma turma
+exports.recuperarTurma = function(req, res) {
+  var t = req.params.turma;
+
+  req.db.collection('alunos').find({turma: t}).toArray(function(err, alunos) {
+    if (err) {
+      return res.sendStatus(503);
+    }
+
+    res.send(alunos); // status implicito 200
+  });
+};
+
 // cria um novo aluno
 exports.criar = function (req, res) {
   req.db.collection('alunos').save(req.body, function(err, result) {
