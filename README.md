@@ -9,5 +9,3 @@ Após clonar este repositório rode os comandos:
 `npm start` - para inicializar o projeto
 
 `Fala do GIT`
-
-asdf
