@@ -55,6 +55,7 @@ var auth = function (req, res, next) {
 var alunosController = require('./controllers/alunos.js');
 var professoresController = require('./controllers/professores.js');
 var usuariosController = require('./controllers/usuarios.js');
+var contaController = require('./controllers/conta.js');
 
 // cria enpoints para funcoes de controllers
 app.get('/alunos', auth, alunosController.listar);
@@ -73,3 +74,5 @@ app.post('/usuarios', usuariosController.criar);
 
 // cria um usuario 'professor'
 app.post('/usuarios/professor/:idProfessor', usuariosController.criarUsuarioProfessor);
+
+app.post('/email', contaController.email);

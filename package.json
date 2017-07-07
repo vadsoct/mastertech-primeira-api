@@ -14,7 +14,9 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "express-mongo-db": "^2.0.3",
-    "mongodb": "^2.2.29"
+    "mongodb": "^2.2.29",
+    "nodemailer": "^4.0.1",
+    "nodemailer-smtp-transport": "^2.7.4"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
