@@ -30,11 +30,23 @@ var auth = function (req, res, next) {
     return unauthorized(res);
   };
 
-  if (user.name === 'foo' && user.pass === 'bar') {
-    return next();
-  } else {
-    return unauthorized(res);
-  };
+  req.db.collection('usuarios').findOne({usuario: user.name, senha: user.pass}, function(err, result) {
+    if (err) {
+      return unauthorized(res);
+    }
+
+    if (!result) {
+      return unauthorized(res);
+    }
+
+    next();
+  });
+
+  // if (user.name === 'foo' && user.pass === 'bar') {
+  //   return next();
+  // } else {
+  //   return unauthorized(res);
+  // };
 };
 
 // importa controllers
