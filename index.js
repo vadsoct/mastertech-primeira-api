@@ -24,6 +24,7 @@ var auth = function (req, res, next) {
     return res.sendStatus(401);
   };
 
+  // traduz o cabecalho Authorization para o objeto user
   var user = basicAuth(req);
 
   if (!user || !user.name || !user.pass) {
@@ -42,7 +43,7 @@ var auth = function (req, res, next) {
     next();
   });
 
-  // if (user.name === 'foo' && user.pass === 'bar') {
+  // if (user.name === 'admin' && user.pass === 'senhaforte') {
   //   return next();
   // } else {
   //   return unauthorized(res);
@@ -52,6 +53,7 @@ var auth = function (req, res, next) {
 // importa controllers
 var alunosController = require('./controllers/alunos.js');
 var professoresController = require('./controllers/professores.js');
+var usuariosController = require('./controllers/usuarios.js');
 
 // cria enpoints para funcoes de controllers
 app.get('/alunos', auth, alunosController.listar);
@@ -62,3 +64,9 @@ app.delete('/alunos/:id', alunosController.apagar);
 
 app.get('/professores', professoresController.listar);
 app.post('/professores', professoresController.criar);
+
+// cria um usuario 'externo'
+app.post('/usuarios', usuariosController.criar);
+
+// cria um usuario 'professor'
+app.post('/usuarios/professor/:idProfessor', usuariosController.criarUsuarioProfessor);
